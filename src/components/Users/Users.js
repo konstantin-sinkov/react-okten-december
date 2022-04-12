@@ -1,9 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+
+import {usersService} from "../../services";
+import {User} from "../index";
+
 
 const Users = () => {
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        usersService.getUsers()
+            .then(({data}) => setUsers(data))
+    }, []);
     return (
         <div>
-            <p>sdcsdc</p>
+            <h2><u>USERS:</u></h2>
+            {
+                users.map(user => <User key={user.id} user={user}/>)
+            }
         </div>
     );
 }
